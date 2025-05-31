@@ -2,8 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
 use App\Models\Track;
+use App\Models\User;
+use App\Models\ApiKey;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -21,6 +22,8 @@ class DatabaseSeeder extends Seeder
             'email' => 'test@example.com',
             'is_admin' => true,
         ]);
+
+        ApiKey::factory(10)->create();
 
         Track::factory(50)->create();
     }

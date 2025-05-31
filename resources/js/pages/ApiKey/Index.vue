@@ -1,43 +1,19 @@
-<script setup lang="ts">
-import AppLayout from '@/layouts/AppLayout.vue';
-import { type BreadcrumbItem } from '@/types';
-import { Head, Link } from '@inertiajs/vue3';
-import PlaceholderPattern from '../components/PlaceholderPattern.vue';
-
-const breadcrumbs: BreadcrumbItem[] = [
-  {
-    title: 'Dashboard',
-    href: '/dashboard',
-  },
-];
-const props = defineProps({
-  apiKeys: Array,
-})
-</script>
-
 <template>
 
-  <Head title="Dashboard" />
-
-  <AppLayout :breadcrumbs="breadcrumbs">
-    <div class="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
-      <div class="grid auto-rows-min gap-4 md:grid-cols-3">
-        <div
-          class="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border text-white">
-          {{ apiKeys.key }}
-        </div>
-        <div
-          class="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
-          <PlaceholderPattern />
-        </div>
-        <div
-          class="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
-          <PlaceholderPattern />
-        </div>
-      </div>
-      <div
-        class="relative min-h-[100vh] flex-1 rounded-xl border border-sidebar-border/70 dark:border-sidebar-border md:min-h-min p-4">
-        <h1 class="text-2xl font-bold">Bienvenue sur votre dashboard, {{ $page.props.auth.user.name }} !</h1>
+    <Head title="ApiKeys" />
+  
+    <MusicLayout>
+      <template #title>
+        Clés API
+      </template>
+  
+      <template #action>
+        <Link :href="route('apikeys.create')" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded w-full mb-">
+        Ajouter une clé API
+        </Link>
+      </template>
+  
+      <template #content>
         <div class="flex flex-col gap-4">
           <p>Vous retrouverez ci-dessous vos clés API. Vous pouvez les utiliser pour accéder à l'API de l'application.</p>
           <div class="relative overflow-x-auto">
@@ -70,14 +46,30 @@ const props = defineProps({
                             {{ key.created_at }}
                         </td>
                         <td class="px-6 py-4">
-                            <Link :href="route('apikey.destroy', { ApiKey: key.id })" preserve-scroll method="delete" as="button" class="bg-red-500 text-white px-4 py-2 rounded-md">Supprimer</Link>
+                            <!-- <Link :href="route('apikey.destroy', { ApiKey: key.id })" preserve-scroll method="delete" as="button" class="bg-red-500 text-white px-4 py-2 rounded-md">Supprimer</Link> -->
                         </td>
                     </tr>
                 </tbody>
             </table>
           </div>
         </div>
-      </div>
-    </div>
-  </AppLayout>
+      </template>
+    </MusicLayout>
 </template>
+
+<script lang="ts">
+import { Head, Link } from '@inertiajs/vue3';
+import MusicLayout from '@/layouts/MusicLayout.vue';
+
+export default {
+  name: 'Index',
+  components: {
+    Head,
+    MusicLayout,
+    Link,
+  },
+  props: {
+    apiKeys: Array,
+  },
+}
+</script>

@@ -20,8 +20,8 @@ class TrackFactory extends Factory
             'uuid' => $this->faker->uuid(),
             'title' => $this->faker->sentence(4),
             'artist' => $this->faker->name(),
-            'image' => 'track.png',
-            'music' => 'track.mp3',
+            'image' => 'tracks/images/test.svg',
+            'music' => 'tracks/musics/test.wav',
             'display' => $this->faker->boolean(90),
             'play_count' => $this->faker->numberBetween(0, 1000),
         ];
