@@ -70,7 +70,7 @@ const props = defineProps({
                             {{ key.created_at }}
                         </td>
                         <td class="px-6 py-4">
-                            <Link :href="route('apikey.destroy', { ApiKey: key.id })" preserve-scroll method="delete" as="button" class="bg-red-500 text-white px-4 py-2 rounded-md">Supprimer</Link>
+                            <!-- <Link :href="route('apikey.destroy', { ApiKey: key.id })" preserve-scroll method="delete" as="button" class="bg-red-500 text-white px-4 py-2 rounded-md">Supprimer</Link> -->
                         </td>
                     </tr>
                 </tbody>

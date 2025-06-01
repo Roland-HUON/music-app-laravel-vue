@@ -35,7 +35,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="key in apiKeys" :key="key.id" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
+                    <tr v-for="key in apiKeys" :key="key.uuid" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             {{ key.name }}
                         </th>
@@ -46,7 +46,7 @@
                             {{ key.created_at }}
                         </td>
                         <td class="px-6 py-4">
-                            <!-- <Link :href="route('apikey.destroy', { ApiKey: key.id })" preserve-scroll method="delete" as="button" class="bg-red-500 text-white px-4 py-2 rounded-md">Supprimer</Link> -->
+                            <button @click="destroy(key.uuid)" class="bg-red-500 text-white px-4 py-2 rounded-md">Supprimer</button>
                         </td>
                     </tr>
                 </tbody>
@@ -71,5 +71,10 @@ export default {
   props: {
     apiKeys: Array,
   },
+  methods: {
+    destroy(uuid) {
+      this.$inertia.delete(route('apikeys.destroy', { apikey: uuid }));
+    },
+  }
 }
 </script>

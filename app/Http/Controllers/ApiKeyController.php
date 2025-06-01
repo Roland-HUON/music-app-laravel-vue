@@ -14,7 +14,7 @@ class ApiKeyController extends Controller
      */
     public function index()
     {
-        $apiKeys = ApiKey::all();
+        $apiKeys = ApiKey::where('user_id', auth()->user()->id)->get();
 
         return Inertia::render('ApiKey/Index', [
             'apiKeys' => $apiKeys,
@@ -68,10 +68,12 @@ class ApiKeyController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(ApiKey $apiKey)
+    public function destroy(ApiKey $apikey)
     {
-        $apiKey->delete();
-
-        return redirect()->route('dashboard');
+        if (!$apikey->exists) {
+            return back()->withErrors(['error' => 'Clé API non trouvée.']);
+        }
+        $apikey->delete();
+        return redirect()->route('apikeys.index');
     }
 }

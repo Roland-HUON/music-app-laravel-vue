@@ -110,4 +110,11 @@ class PlaylistController extends Controller
 
         return redirect()->back();
     }
+ 
+    public function userPlaylists(Request $request){
+        $user = $request->attributes->get('user');
+        // dd($user);
+        $playlists = $user->playlists()->with('tracks')->get();
+        return response()->json($playlists);
+    }
 }
