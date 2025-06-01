@@ -13,5 +13,5 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('apikeys/{apiKey}', [ApiKeyController::class, 'destroy']);
 });
 
-// Route::get('playlists', [PlaylistController::class, 'userPlaylists'])->middleware([ValidateApiKey::class])->name('api-playlists.index');
-Route::get('playlists', [PlaylistController::class, 'userPlaylists'])->name('api-playlists.index');
+Route::get('playlists', [PlaylistController::class, 'userPlaylists'])->middleware([ValidateApiKey::class])->name('api-playlists.index');
+// Route::get('playlists', [PlaylistController::class, 'userPlaylists'])->name('api-playlists.index');
