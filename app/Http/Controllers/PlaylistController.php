@@ -112,9 +112,23 @@ class PlaylistController extends Controller
     }
  
     public function userPlaylists(Request $request){
-        $user = $request->attributes->get('user');
-        // dd($user);
-        $playlists = $user->playlists()->with('tracks')->get();
-        return response()->json($playlists);
+        // $user = $request->attributes->get('user');
+        // $user = \App\Models\User::first();
+
+        // if (!$user) {
+        //     return response()->json(['error' => 'Utilisateur non connecté'], 401);
+        // }
+        // $playlists = $user->playlists()->with('tracks')->get();
+        // return response()->json($playlists);
+        $user = \App\Models\User::find(1);
+
+        if (!$user) {
+            return response()->json(['error' => 'Utilisateur non trouvé'], 404);
+        }
+    
+        return response()->json([
+            'user' => $user,
+            'playlists' => $user->playlists()->with('tracks')->get(),
+        ]);
     }
 }
