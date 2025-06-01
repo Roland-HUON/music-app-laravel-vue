@@ -1,25 +1,32 @@
-<script setup lang="ts">
+<script lang="ts">
 import AppLayout from '@/layouts/AppLayout.vue';
-import { type BreadcrumbItem } from '@/types';
 import { Head, Link } from '@inertiajs/vue3';
 import PlaceholderPattern from '../components/PlaceholderPattern.vue';
 
-const breadcrumbs: BreadcrumbItem[] = [
-  {
-    title: 'Dashboard',
-    href: '/dashboard',
+export default {
+  name: 'Index',
+  components: {
+    Head,
+    Link,
+    AppLayout,
+    PlaceholderPattern,
   },
-];
-const props = defineProps({
-  apiKeys: Array,
-})
+  props: {
+    apiKeys: Array,
+  },
+  methods: {
+    destroy(uuid) {
+      this.$inertia.delete(route('apikeys.destroy', { apikey: uuid }));
+    },
+  }
+}
 </script>
 
 <template>
 
   <Head title="Dashboard" />
 
-  <AppLayout :breadcrumbs="breadcrumbs">
+  <AppLayout>
     <div class="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
       <div class="grid auto-rows-min gap-4 md:grid-cols-3">
         <div
@@ -59,7 +66,7 @@ const props = defineProps({
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="key in apiKeys" :key="key.id" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
+                    <tr v-for="key in apiKeys" :key="key.uuid" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             {{ key.name }}
                         </th>
@@ -70,7 +77,7 @@ const props = defineProps({
                             {{ key.created_at }}
                         </td>
                         <td class="px-6 py-4">
-                            <!-- <Link :href="route('apikey.destroy', { ApiKey: key.id })" preserve-scroll method="delete" as="button" class="bg-red-500 text-white px-4 py-2 rounded-md">Supprimer</Link> -->
+                          <button @click="destroy(key.uuid)" class="bg-red-500 text-white px-4 py-2 rounded-md">Supprimer</button>
                         </td>
                     </tr>
                 </tbody>

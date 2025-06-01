@@ -74,6 +74,6 @@ class ApiKeyController extends Controller
             return back()->withErrors(['error' => 'Clé API non trouvée.']);
         }
         $apikey->delete();
-        return redirect()->route('apikeys.index');
+        return redirect()->back();
     }
 }
