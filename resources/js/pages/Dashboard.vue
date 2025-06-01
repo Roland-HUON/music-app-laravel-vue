@@ -83,6 +83,9 @@ export default {
                 </tbody>
             </table>
           </div>
+          <Link :href="route('apikeys.create')" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded w-fit mb- self-end">
+        Ajouter une clé API
+        </Link>
         </div>
       </div>
     </div>

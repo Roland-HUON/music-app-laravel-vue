@@ -52,7 +52,7 @@ class ApiKeyController extends Controller
             'key' => $key,
         ]);
 
-        return redirect()->route('apikeys.index');
+        return redirect()->back();
     }
 
     // /**
